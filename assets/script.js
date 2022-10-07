@@ -1,9 +1,8 @@
-var timerEl= document.querySelector(".timer");
-var beginEl = document.querySelector("start");
+var timer= document.querySelector(".timer");
+var start = document.querySelector("start");
 var showtime = document.querySelector(".showtime");
 
 
-var index = 0;
 var timeRemain = 70;
 
 
@@ -14,7 +13,11 @@ var questions = [
     "Questions4",
 ]
 
+function navigation(){
+    start.addEventListener("click", function(){
 
+    })
+}
 function countdown() {
     var timerInterval= setInterval(function(){
         timeRemain--;
@@ -30,7 +33,8 @@ function countdown() {
 }
 
 function startQuiz(){
-
+    countdown()
+    navigation()
 }
 
 
