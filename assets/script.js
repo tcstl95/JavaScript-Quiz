@@ -12,10 +12,26 @@ var questions = [
     "Question3",
     "Questions4",
 ]
+var questionsLength = questions.length;
+
+var choices = [
+    "Choice1",
+    "Choice2",
+    "Choice3",
+    "Choice4",
+]
+function createQuestions(){
+    var ques = document.getElementById('questions');
+    for(var i = 0; i < questionsLength; i++){
+        console.log(questions[i]);
+    }
+
+}
 
 function navigation(){
     start.addEventListener("click", function(){
-
+        createQuestions();
+        showtime.setAttribute("hidden");
     })
 }
 function countdown() {
@@ -32,9 +48,11 @@ function countdown() {
     
 }
 
+
 function startQuiz(){
     countdown()
     navigation()
+    createQuestions()
 }
 
 
