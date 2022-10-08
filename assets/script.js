@@ -1,43 +1,66 @@
 var timer= document.querySelector(".timer");
-var start = document.querySelector("start");
+var start = document.querySelector("#start");
 var showtime = document.querySelector(".showtime");
+
 
 
 var timeRemain = 70;
 
 
 var questions = [
-    "Question1",
-    "Question2",
-    "Question3",
-    "Questions4",
-]
-var questionsLength = questions.length;
+{
+   title: "Question1",
+   choices: ["answer1", "answer2", "answer3","answer4"],
+   answer: "answer 2",
+},
+{
+    title: "Question2",
+   choices: ["answer1", "answer2", "answer3","answer4"],
+   answer: "answer 4",
+},
+{
+    title: "Question3",
+   choices: ["answer1", "answer2", "answer3","answer4"],
+   answer: "answer 3",
+},
+{
+    title: "Question4",
+    choices: ["answer1", "answer2","answer3","answer4"],
+    answer: "answer 1",
+},
 
-var choices = [
-    "Choice1",
-    "Choice2",
-    "Choice3",
-    "Choice4",
 ]
-function createQuestions(){
-    var ques = document.getElementById('questions');
-    for(var i = 0; i < questionsLength; i++){
-        console.log(questions[i]);
-    }
+function createQuestions(idx){
 
+    var header = document.createElement('h1');
+    var body = document.createElement('p');
+
+    header.innerHTML = questions[idx].title
+    body.innerHTML = questions[idx].choices
+
+
+    document.getElementById('question').append(header)
+  
+
+    for(var i= 0; i < questions[idx].choices.length; i++ ){
+        var option = document.createElement('p');
+        option.innerHTML = questions[idx].choices[i];
+        document.getElementById('question').append(option)
+    } 
+   
+ 
 }
-
-function navigation(){
-    start.addEventListener("click", function(){
-        createQuestions();
-        showtime.setAttribute("hidden");
+  start.addEventListener("click", function(event){
+    event.preventDefault();
+        console.log('inside start btn click')
+        createQuestions(0);
+    
     })
-}
+
 function countdown() {
     var timerInterval= setInterval(function(){
         timeRemain--;
-        timerEl.textContent = timeRemain + "Seconds remaining!!"
+        timer.textContent = timeRemain + "Seconds remaining!!"
 
         if (timeRemain === 0){
             clearInterval(timerInterval);
@@ -49,11 +72,7 @@ function countdown() {
 }
 
 
-function startQuiz(){
-    countdown()
-    navigation()
-    createQuestions()
-}
+
 
 
 
