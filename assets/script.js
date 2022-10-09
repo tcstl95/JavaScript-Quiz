@@ -1,7 +1,6 @@
 var timer= document.querySelector(".timer");
 var start = document.querySelector("#start");
-var showtime = document.querySelector(".showtime");
-
+var option = document.querySelector(".option");
 
 
 var timeRemain = 70;
@@ -30,37 +29,13 @@ var questions = [
 },
 
 ]
-function createQuestions(idx){
 
-    var header = document.createElement('h1');
-    var body = document.createElement('p');
-
-    header.innerHTML = questions[idx].title
-    body.innerHTML = questions[idx].choices
-
-
-    document.getElementById('question').append(header)
-  
-
-    for(var i= 0; i < questions[idx].choices.length; i++ ){
-        var option = document.createElement('p');
-        option.innerHTML = questions[idx].choices[i];
-        document.getElementById('question').append(option)
-    } 
-   
- 
-}
-  start.addEventListener("click", function(event){
-    event.preventDefault();
-        console.log('inside start btn click')
-        createQuestions(0);
-    
-    })
 
 function countdown() {
+    
     var timerInterval= setInterval(function(){
         timeRemain--;
-        timer.textContent = timeRemain + "Seconds remaining!!"
+        timer.textContent = timeRemain + " Seconds remaining!!"
 
         if (timeRemain === 0){
             clearInterval(timerInterval);
@@ -70,6 +45,49 @@ function countdown() {
 
     
 }
+start.addEventListener("click", function(event){
+    event.preventDefault();
+    console.log('time starter')
+    countdown(0);
+})
+
+function createQuestions(idx){
+
+    var header = document.createElement('h1');
+    
+
+    header.innerHTML = questions[idx].title
+    
+    document.getElementById('question').append(header)
+  
+
+    for(var i= 0; i < questions[idx].choices.length; i++ ){
+        var option = document.createElement('p');
+        option.innerHTML = questions[idx].choices[i];
+        document.getElementById('question').append(option)
+    } 
+   
+    
+}
+
+option.forEach(function(newItem){
+    var listItem = document.createElement("li")
+    listItem.textContent = newItem;
+    option.appendChild(ulCreate);
+    ulCreate.appendChild (listItem);
+    listItem.addEventListener("click", (compareAnswerFunction));
+})
+ 
+
+
+start.addEventListener("click", function(event){
+    event.preventDefault();
+        console.log('inside start btn click')
+        createQuestions(0);
+
+    
+    })
+
 
 
 
