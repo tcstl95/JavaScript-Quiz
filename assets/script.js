@@ -1,7 +1,7 @@
 var timer= document.querySelector(".timer");
 var start = document.querySelector("#start");
-var option = document.querySelector(".option");
-var ulCreate = document.querySelector("#ulCreate");
+
+
 
 
 var timeRemain = 70;
@@ -53,8 +53,8 @@ start.addEventListener("click", function(event){
 })
 
 function createQuestions(idx){
-    header.innerHTML= "";
-    
+
+    var header = document.createElement('h1');
     
 
     header.innerHTML = questions[idx].title
@@ -66,24 +66,13 @@ function createQuestions(idx){
         var option = document.createElement('p');
         option.innerHTML = questions[idx].choices[i];
         document.getElementById('question').append(option)
-    answer
     } 
-
    
-    
+   
 }
 
-questions.forEach(function(newItem){
-    var questions = document.createElement("li")
-    questions.textContent = " ";
-    questions.appendChild(ulCreate);
-    ulCreate.appendChild (listItem);
-    listItem.addEventListener("click", (compareAnswerFunction));
-    
-    
-})
- 
 
+ 
 
 start.addEventListener("click", function(event){
     event.preventDefault();
@@ -94,7 +83,7 @@ start.addEventListener("click", function(event){
     })
 
 
-newItem.addEventListener("click", forEach);
+
 
 
 
