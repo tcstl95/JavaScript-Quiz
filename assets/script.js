@@ -1,7 +1,7 @@
 var timer= document.querySelector(".timer");
 var start = document.querySelector("#start");
 var option = document.querySelector(".option");
-var quiz = document.getElementById(".Quiz");
+
 
 var timeRemain = 70;
 
@@ -53,7 +53,7 @@ start.addEventListener("click", function(event){
 
 function createQuestions(idx){
     header.innerHTML= "";
-    var header = document.createElement('h1');
+    
     
 
     header.innerHTML = questions[idx].title
@@ -72,10 +72,10 @@ function createQuestions(idx){
     
 }
 
-option.forEach(function(newItem){
+questions.forEach(function(newItem){
     var questions = document.createElement("li")
     questions.textContent = newItem;
-    option.appendChild(ulCreate);
+    questions.appendChild(ulCreate);
     ulCreate.appendChild (listItem);
     listItem.addEventListener("click", (compareAnswerFunction));
     
