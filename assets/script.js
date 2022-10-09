@@ -1,6 +1,7 @@
 var timer= document.querySelector(".timer");
 var start = document.querySelector("#start");
 var option = document.querySelector(".option");
+var ulCreate = document.querySelector("#ulCreate");
 
 
 var timeRemain = 70;
@@ -74,7 +75,7 @@ function createQuestions(idx){
 
 questions.forEach(function(newItem){
     var questions = document.createElement("li")
-    questions.textContent = newItem;
+    questions.textContent = " ";
     questions.appendChild(ulCreate);
     ulCreate.appendChild (listItem);
     listItem.addEventListener("click", (compareAnswerFunction));
