@@ -3,7 +3,8 @@ var start = document.querySelector("#start");
 var scoreInput = document.querySelector("#score-text");
 var scoreList =  document.querySelector("#score-list");
 var scoreCount = document.querySelector("#score-count");
-var user = document.getElementById("username");
+var nameList = document.querySelector("#name-list");
+var user = document.getElementById("name");
 var saveButton = document.getElementById("save");
 var questionsIndex = 0;
 var titleIndex = 0;
@@ -85,6 +86,7 @@ start.addEventListener("click", function (event) {
 
 
 var scores = []; 
+var names = [];
 
 function produceScores(){
 scoreList.innerHTML= "";
@@ -92,16 +94,20 @@ scoreCount.textContent = scores.length;
 
 for(var i = 0; i < scores.length; i++){
     var score = scores[i];
+    var name = names[i];
 
     var li = document.createElement("li");
     li.textContent = score;
+    li.textContent = name;
     li.setAttribute("data-index", i);
 
     var button = document.createElement("button");
     button.textContent = "Score Saved";
     
     li.appendChild(button);
-    scoreText.appendChild(li);
+    scoreList.appendChild(li);
+
+
     
 }
 
@@ -109,20 +115,23 @@ for(var i = 0; i < scores.length; i++){
 
 function scoresInit(){
 var storedScores = JSON.parse(localStorage.getItem("scores"));
+var storedNames = JSON.parse(localStorage.getItem("names"));
 
 if (storedScores !== null){
     scores = storedScores;
+}
+if(storedNames !== null){
+    names = storedNames;
 }
 
 produceScores();
 
 }
 
-
 function storeScores(){
     localStorage.setItem("scores", JSON.stringify(scores));
 }
-saveButton.addEventListener("submit", function(event){
+saveButton.addEventListener("click", function(event){
     event.preventDefault();
     var scoreText = scoreInput.value.trim();
 
@@ -131,6 +140,13 @@ saveButton.addEventListener("submit", function(event){
     }
     scores.push(scoreText);
     scoreInput.value = "";
+   
+   if(nameText === ""){
+    return;
+   }
+   var nameText = nameInput.value.trim();
+    nameInput.value = "";
+    names.push(nameText);
     storeScores();
     produceScores();
 });
