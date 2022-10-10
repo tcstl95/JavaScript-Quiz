@@ -1,9 +1,9 @@
 var timer = document.querySelector(".timer");
 var start = document.querySelector("#start");
 var decreaseEl= document.querySelector(".decrease");
-
 var questionsIndex = 0;
-
+var titleIndex = 0;
+var answerIndex= 0;
 
 
 var questions = [
@@ -30,7 +30,7 @@ var questions = [
 ];
 
 function countdown() {
-    var timeRemain = 70;
+    var timeRemain = 30;
   
     var timerInterval = setInterval(function () {
   
@@ -79,9 +79,17 @@ start.addEventListener("click", function (event) {
   createQuestions(questionsIndex);
 });
 
-decreaseEl.addEventListener("click", function(){
-if (answer === false){
-    timeRemain-5;
+decreaseEl.addEventListener("click", function(event) {
+    event.preventDefault();
+if (choices[0] === answer[0]){
+    return;
+}else if (choices [1] === answer [1]){
+    return;
+} else if (choices[2] === answer [2]){
+    return;
+} else if (choices[3] === answer [3]){
+    return;
+}else {
+    return timeRemain-=5;
 }
-})
-
+});
