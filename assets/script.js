@@ -135,14 +135,6 @@ saveButton.addEventListener("submit", function(event){
     produceScores();
 });
 
-function saveLastScore(){
-    var userScore = {
-        user: user.value,
-        score: scores.value,
-
-    };
-    localStorage.setItem("userResult", JSON.stringify(userScore));
-}
 
 
 
