@@ -1,10 +1,10 @@
 var timer = document.querySelector(".timer");
 var start = document.querySelector("#start");
 var scoreInput = document.querySelector("#score-text");
+var nameInput = document.querySelector("#name-text");
 var scoreList =  document.querySelector("#score-list");
 var scoreCount = document.querySelector("#score-count");
 var nameList = document.querySelector("#name-list");
-var user = document.getElementById("name");
 var saveButton = document.getElementById("save");
 var questionsIndex = 0;
 var titleIndex = 0;
@@ -92,6 +92,7 @@ function produceScores(){
 scoreList.innerHTML= "";
 scoreCount.textContent = scores.length;
 
+
 for(var i = 0; i < scores.length; i++){
     var score = scores[i];
     var name = names[i];
@@ -108,7 +109,6 @@ for(var i = 0; i < scores.length; i++){
     scoreList.appendChild(li);
 
 
-    
 }
 
 }
@@ -130,25 +130,28 @@ produceScores();
 
 function storeScores(){
     localStorage.setItem("scores", JSON.stringify(scores));
+    localStorage.setItem("names", JSON.stringify(names));
 }
 saveButton.addEventListener("click", function(event){
     event.preventDefault();
     var scoreText = scoreInput.value.trim();
+    var nameText = nameInput.value.trim();
 
-    if (scoreText === ""){
-        return;
-    }
     scores.push(scoreText);
     scoreInput.value = "";
-   
-   if(nameText === ""){
-    return;
-   }
-   var nameText = nameInput.value.trim();
     nameInput.value = "";
     names.push(nameText);
     storeScores();
     produceScores();
+    if (scoreText === ""){
+        return;
+    }
+
+   
+   if(nameText === ""){
+    return;
+   }
+
 });
 
 
