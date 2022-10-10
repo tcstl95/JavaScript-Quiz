@@ -1,6 +1,10 @@
 var timer = document.querySelector(".timer");
 var start = document.querySelector("#start");
-var decreaseEl= document.querySelector(".decrease");
+var scoreInput = document.querySelector("#score-text");
+var scoreList =  document.querySelector("#score-list");
+var scoreCount = document.querySelector("#score-count");
+var user = document.getElementById("username");
+var saveButton = document.getElementById("save");
 var questionsIndex = 0;
 var titleIndex = 0;
 var answerIndex= 0;
@@ -79,17 +83,79 @@ start.addEventListener("click", function (event) {
   createQuestions(questionsIndex);
 });
 
-decreaseEl.addEventListener("click", function(event) {
-    event.preventDefault();
-if (choices[0] === answer[0]){
-    return;
-}else if (choices [1] === answer [1]){
-    return;
-} else if (choices[2] === answer [2]){
-    return;
-} else if (choices[3] === answer [3]){
-    return;
-}else {
-    return timeRemain-=5;
+
+var scores = []; 
+
+function produceScores(){
+scoreList.innerHTML= "";
+scoreCount.textContent = scores.length;
+
+for(var i = 0; i < scores.length; i++){
+    var score = scores[i];
+
+    var li = document.createElement("li");
+    li.textContent = score;
+    li.setAttribute("data-index", i);
+
+    var button = document.createElement("button");
+    button.textContent = "Score Saved";
+    
+    li.appendChild(button);
+    scoreText.appendChild(li);
+    
 }
+
+}
+
+function scoresInit(){
+var storedScores = JSON.parse(localStorage.getItem("scores"));
+
+if (storedScores !== null){
+    scores = storedScores;
+}
+
+produceScores();
+
+}
+
+
+function storeScores(){
+    localStorage.setItem("scores", JSON.stringify(scores));
+}
+saveButton.addEventListener("submit", function(event){
+    event.preventDefault();
+    var scoreText = scoreInput.value.trim();
+
+    if (scoreText === ""){
+        return;
+    }
+    scores.push(scoreText);
+    scoreInput.value = "";
+    storeScores();
+    produceScores();
 });
+
+function saveLastScore(){
+    var userScore = {
+        user: user.value,
+        score: scores.value,
+
+    };
+    localStorage.setItem("userResult", JSON.stringify(userScore));
+}
+
+
+
+scoreList.addEventListener("click", function(event){
+    var element = event.target;
+
+    if(element.matches("button") === true){
+        var index = element.parentElement.getAttribute("data-index");
+        scores.splice(index, 1);
+
+        storeScores();
+        produceScores();
+    }
+});
+
+scoresInit()

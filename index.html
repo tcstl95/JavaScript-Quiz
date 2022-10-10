@@ -1,46 +1,44 @@
 <!DOCTYPE html>
-<html lang= "en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>The Hardest JavaScript Quiz</title>
-        <link rel="stylesheet" href="./assets/style.css"/>
-    </head>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>The Hardest JavaScript Quiz</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
 
-    <body>
-        <div class="Intro">
-            <h2>This is where you test your knowlesge of JavaScript. No Pressure!</h2>
-            <h2>Press start to begin quiz.</h2>
-            
-        </div>
+  <body>
+    <div class="Intro">
+      <h2>This is where you test your knowlesge of JavaScript. No Pressure!</h2>
+      <h2>Press start to begin quiz.</h2>
+    </div>
+    <div id="question"></div>
 
-       <div class ="decrease">
+    <div class="timer"></div>
 
-       </div>
-        
-        <div id="question">
-           
+    <form>
+      <button id="start">Next</button>
+    </form>
+    <div class="scorecard">
+      <h2>Enter your name below</h2>
+      <form>
+        <ul>
+          <li>
+            <label for="name">Name</label>
+            <textarea id="username" name="nameentry"></textarea>
+          </li>
+          <li>
+            <label for="score"> Enter Score</label>
+            <input type = "text" name="score-text" id = "score-text">
+               </li>
+        </ul>
+        <button id="save">SAVE</button>
+      </form>
+      <p> Score Count: <span id = "score-count">0</span></p>
+      <ul id ="score-list"></ul>
+    </div>
 
-        </div>
-
-        <div class="option">
-        </div>
-    
-
-        <div class="timer">
-        </div>
-        
-            <form>
-            <button id="start">Next</button>
-        </form>
-            
-       
-    
-    
     <script src="./assets/script.js"></script>
-    </body>
-
-
-
+  </body>
 </html>
