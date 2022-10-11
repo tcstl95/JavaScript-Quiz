@@ -1,5 +1,6 @@
 var timer = document.querySelector(".timer");
 var start = document.querySelector("#start");
+var rightAnswers = document.querySelector("#RightAnswers");
 var scoreInput = document.querySelector("#score-text");
 var nameInput = document.querySelector("#name-text");
 var scoreList = document.querySelector("#score-list");
@@ -9,32 +10,34 @@ var nameList = document.querySelector("#name-list");
 var saveButton = document.getElementById("save");
 var questionsIndex = 0;
 var titleIndex = 0;
-var answerIndex = 0;
-
-
-
+var choicesIndex = 0;
+var answersIndex = 0;
+var answers = [
+  {
+ correctAnswers: ["interactive","Chicken","Trick-Question","Pooltime"],
+  },
+];
 var questions = [
   {
     title: "Which of the following adjectives best describes JavaScript?",
     choices: ["colorful", "interactive", "simple", "shiny"],
-    answer: "interactive",
+    
   },
 
-  
   {
     title: "Which of the following terms are not a part of JavaScript?",
     choices: ["Boolean", "String", "Var", "Chicken"],
-    answer: "Chicken",
+    
   },
   {
-    title: "Since Java and JavaScript are the same thing. Can we use either within our HTML?",
+    title:"Since Java and JavaScript are the same thing. Can we use either within our HTML?",
     choices: ["Yes", "No", "Maybe", "Trick Question, they are not the same"],
-    answer: "Trick Question",
+    
   },
   {
     title: "Which error type is not a part of JavaScript?",
     choices: ["Loadtime", "Runtime", "Pooltime", "Logical"],
-    answer: "Pooltime",
+  
   },
 ];
 
@@ -60,6 +63,7 @@ start.addEventListener("click", function (event) {
   countdown();
 });
 
+
 function createQuestions(idx) {
   var header = document.createElement("h1");
 
@@ -80,18 +84,34 @@ function createQuestions(idx) {
   }
 }
 
+function displayAnswers(idx){
+var header = document.createElement("li");
+header.innerHTML = answersIndex[idx].correctAnswers;
+document.getElementById("answer").append(header);
+
+for (var i = 0; i < answers[idx].correctAnswers.length; i++){
+  var option = document.createElement("button");
+  option.setAttribute("class", "option");
+  option.addEventListener("click", function(event){
+    event.preventDefault();
+    answersIndex++;
+    displayAnswers(answersIndex);
+  });
+  option.innerHTML = answersIndex[idx].correctAnswers[i];
+  document.getElementById("answer").append(option);
+}
+}
+
+rightAnswers.addEventListener("click", function(event){
+  event.preventDefault();
+  console.log("Display Answers");
+  displayAnswers(answersIndex);
+});
 start.addEventListener("click", function (event) {
   event.preventDefault();
   console.log("inside start btn click");
   createQuestions(questionsIndex);
 });
-
-
-
-
-
-
-
 
 var scores = [];
 var names = [];
@@ -121,12 +141,12 @@ function produceNames() {
   nameCount.textContent = names.length;
   for (var i = 0; i < names.length; i++) {
     var name = names[i];
-   
+
     var li = document.createElement("li");
     li.textContent = name;
-   
+
     li.setAttribute("data-index", i);
-    
+
     var button = document.createElement("button");
     button.textContent = " Name Saved";
 
@@ -173,8 +193,7 @@ saveButton.addEventListener("click", function (event) {
 saveButton.addEventListener("click", function (event) {
   event.preventDefault();
   var nameText = nameInput.value.trim();
-  
- 
+
   names.push(nameText);
   nameInput.value = "";
   storeNames();
@@ -182,7 +201,6 @@ saveButton.addEventListener("click", function (event) {
   if (nameText === "") {
     return;
   }
-  
 });
 
 scoreList.addEventListener("click", function (event) {
@@ -197,15 +215,15 @@ scoreList.addEventListener("click", function (event) {
   }
 });
 
-nameList.addEventListener("click,", function (event) {
+nameList.addEventListener("click", function (event) {
   var element = event.target;
 
-  if (element.matches("button") === true){
+  if (element.matches("button") === true) {
     var index = element.parentElement.getAttribute("data-index");
-  names.splice(index, 1);
-  
-  storeNames();
-  produceNames();
+    names.splice(index, 1);
+
+    storeNames();
+    produceNames();
   }
 });
 
