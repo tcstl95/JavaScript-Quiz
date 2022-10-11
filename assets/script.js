@@ -1,3 +1,5 @@
+/* Declared Variables for quiz*/
+
 var timer = document.querySelector(".timer");
 var start = document.querySelector("#start");
 var rightAnswers = document.getElementById("RightAnswers");
@@ -11,7 +13,7 @@ var saveButton = document.getElementById("save");
 var questionsIndex = 0;
 var answersIndex = 0;
 var answers = ["(1) interactive","(2) Chicken"," (3) Trick-Question"," (4) Pooltime"];
-  
+  /* This variable helps produce the questions and choices for quiz.*/
 var questions = [
   {
     title: "Which of the following adjectives best describes JavaScript?",
@@ -35,7 +37,7 @@ var questions = [
   
   },
 ];
-
+/* Creates timer*/
 function countdown() {
   var timeRemain = 30;
 
@@ -52,13 +54,14 @@ function countdown() {
     }
   }, 1000);
 }
+/* Event listner for timer*/
 start.addEventListener("click", function (event) {
   event.preventDefault();
   console.log("time starter");
   countdown();
 });
 
-
+/* Function to navigate through questions on quiz*/
 function createQuestions(idx) {
   var header = document.createElement("h1");
 
@@ -79,11 +82,13 @@ function createQuestions(idx) {
   }
 }
 
-
+/* Event listner to display correct answers once user finishes quiz.*/
 rightAnswers.addEventListener("click", function(event){
   event.preventDefault();
   document.getElementById("RightAnswers").textContent = answers.join(",");
 });
+
+/* event listener to produce first question of quiz*/
 start.addEventListener("click", function (event) {
   event.preventDefault();
   console.log("inside start btn click");
@@ -92,7 +97,7 @@ start.addEventListener("click", function (event) {
 
 var scores = [];
 var names = [];
-
+/* Functions to save both scores and names for quiz users*/
 function produceScores() {
   scoreList.innerHTML = "";
   scoreCount.textContent = scores.length;
@@ -131,7 +136,7 @@ function produceNames() {
     nameList.appendChild(li);
   }
 }
-
+/* JSON's to store names and scores*/
 function scoresInit() {
   var storedScores = JSON.parse(localStorage.getItem("scores"));
   var storedNames = JSON.parse(localStorage.getItem("names"));
@@ -167,6 +172,7 @@ saveButton.addEventListener("click", function (event) {
   }
 });
 
+/* Activates save button to save scores and names*/
 saveButton.addEventListener("click", function (event) {
   event.preventDefault();
   var nameText = nameInput.value.trim();
