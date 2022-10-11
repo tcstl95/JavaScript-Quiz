@@ -2,53 +2,55 @@ var timer = document.querySelector(".timer");
 var start = document.querySelector("#start");
 var scoreInput = document.querySelector("#score-text");
 var nameInput = document.querySelector("#name-text");
-var scoreList =  document.querySelector("#score-list");
+var scoreList = document.querySelector("#score-list");
+var nameCount = document.querySelector("#name-count");
 var scoreCount = document.querySelector("#score-count");
 var nameList = document.querySelector("#name-list");
 var saveButton = document.getElementById("save");
 var questionsIndex = 0;
 var titleIndex = 0;
-var answerIndex= 0;
+var answerIndex = 0;
+
 
 
 var questions = [
   {
-    title: "Question1",
-    choices: ["answer1", "answer2", "answer3", "answer4"],
-    answer: "answer2",
+    title: "Which of the following adjectives best describes JavaScript?",
+    choices: ["colorful", "interactive", "simple", "shiny"],
+    answer: "interactive",
+  },
+
+  
+  {
+    title: "Which of the following terms are not a part of JavaScript?",
+    choices: ["Boolean", "String", "Var", "Chicken"],
+    answer: "Chicken",
   },
   {
-    title: "Question2",
-    choices: ["answer1", "answer2", "answer3", "answer4"],
-    answer: "answer4",
+    title: "Since Java and JavaScript are the same thing. Can we use either within our HTML?",
+    choices: ["Yes", "No", "Maybe", "Trick Question, they are not the same"],
+    answer: "Trick Question",
   },
   {
-    title: "Question3",
-    choices: ["answer1", "answer2", "answer3", "answer4"],
-    answer: "answer3",
-  },
-  {
-    title: "Question4",
-    choices: ["answer1", "answer2", "answer3", "answer4"],
-    answer: "answer1",
+    title: "Which error type is not a part of JavaScript?",
+    choices: ["Loadtime", "Runtime", "Pooltime", "Logical"],
+    answer: "Pooltime",
   },
 ];
 
 function countdown() {
-    var timeRemain = 30;
-  
-    var timerInterval = setInterval(function () {
-  
+  var timeRemain = 30;
+
+  var timerInterval = setInterval(function () {
     if (timeRemain > 0) {
-      
       timer.textContent = timeRemain + " Seconds remaining!!";
       timeRemain--;
-    }else if (timeRemain === 1){
-        timer.textContent = timeRemain + " Second remaining!!";
-        timeRemain--;
-    } else{
-        timer.textContent = '';
-        clearInterval(timerInterval);
+    } else if (timeRemain === 1) {
+      timer.textContent = timeRemain + " Second remaining!!";
+      timeRemain--;
+    } else {
+      timer.textContent = "";
+      clearInterval(timerInterval);
     }
   }, 1000);
 }
@@ -69,10 +71,10 @@ function createQuestions(idx) {
     var option = document.createElement("button");
     option.setAttribute("class", "option");
     option.addEventListener("click", function (event) {
-        event.preventDefault();
-        questionsIndex++;
-        createQuestions(questionsIndex);
-      });
+      event.preventDefault();
+      questionsIndex++;
+      createQuestions(questionsIndex);
+    });
     option.innerHTML = questions[idx].choices[i];
     document.getElementById("question").append(option);
   }
@@ -85,88 +87,126 @@ start.addEventListener("click", function (event) {
 });
 
 
-var scores = []; 
+
+
+
+
+
+
+var scores = [];
 var names = [];
 
-function produceScores(){
-scoreList.innerHTML= "";
-scoreCount.textContent = scores.length;
+function produceScores() {
+  scoreList.innerHTML = "";
+  scoreCount.textContent = scores.length;
 
-
-for(var i = 0; i < scores.length; i++){
+  for (var i = 0; i < scores.length; i++) {
     var score = scores[i];
-    var name = names[i];
 
     var li = document.createElement("li");
     li.textContent = score;
-    li.textContent = name;
+
     li.setAttribute("data-index", i);
 
     var button = document.createElement("button");
-    button.textContent = "Score Saved";
-    
+    button.textContent = " Score Saved";
+
     li.appendChild(button);
     scoreList.appendChild(li);
-
-
+  }
 }
 
+function produceNames() {
+  nameList.innerHTML = "";
+  nameCount.textContent = names.length;
+  for (var i = 0; i < names.length; i++) {
+    var name = names[i];
+   
+    var li = document.createElement("li");
+    li.textContent = name;
+   
+    li.setAttribute("data-index", i);
+    
+    var button = document.createElement("button");
+    button.textContent = " Name Saved";
+
+    li.appendChild(button);
+    nameList.appendChild(li);
+  }
 }
 
-function scoresInit(){
-var storedScores = JSON.parse(localStorage.getItem("scores"));
-var storedNames = JSON.parse(localStorage.getItem("names"));
+function scoresInit() {
+  var storedScores = JSON.parse(localStorage.getItem("scores"));
+  var storedNames = JSON.parse(localStorage.getItem("names"));
 
-if (storedScores !== null){
+  if (storedScores !== null) {
     scores = storedScores;
-}
-if(storedNames !== null){
+  }
+  if (storedNames !== null) {
     names = storedNames;
+  }
+
+  produceScores();
+  produceNames();
 }
 
-produceScores();
-
+function storeScores() {
+  localStorage.setItem("scores", JSON.stringify(scores));
 }
 
-function storeScores(){
-    localStorage.setItem("scores", JSON.stringify(scores));
-    localStorage.setItem("names", JSON.stringify(names));
+function storeNames() {
+  localStorage.setItem("names", JSON.stringify(names));
 }
-saveButton.addEventListener("click", function(event){
-    event.preventDefault();
-    var scoreText = scoreInput.value.trim();
-    var nameText = nameInput.value.trim();
+saveButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  var scoreText = scoreInput.value.trim();
 
-    scores.push(scoreText);
-    scoreInput.value = "";
-    nameInput.value = "";
-    names.push(nameText);
+  scores.push(scoreText);
+  scoreInput.value = "";
+  storeScores();
+  produceScores();
+  if (scoreText === "") {
+    return;
+  }
+});
+
+saveButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  var nameText = nameInput.value.trim();
+  
+ 
+  names.push(nameText);
+  nameInput.value = "";
+  storeNames();
+  produceNames();
+  if (nameText === "") {
+    return;
+  }
+  
+});
+
+scoreList.addEventListener("click", function (event) {
+  var element = event.target;
+
+  if (element.matches("button") === true) {
+    var index = element.parentElement.getAttribute("data-index");
+    scores.splice(index, 1);
+
     storeScores();
     produceScores();
-    if (scoreText === ""){
-        return;
-    }
-
-   
-   if(nameText === ""){
-    return;
-   }
-
+  }
 });
 
+nameList.addEventListener("click,", function (event) {
+  var element = event.target;
 
-
-
-scoreList.addEventListener("click", function(event){
-    var element = event.target;
-
-    if(element.matches("button") === true){
-        var index = element.parentElement.getAttribute("data-index");
-        scores.splice(index, 1);
-
-        storeScores();
-        produceScores();
-    }
+  if (element.matches("button") === true){
+    var index = element.parentElement.getAttribute("data-index");
+  names.splice(index, 1);
+  
+  storeNames();
+  produceNames();
+  }
 });
 
-scoresInit()
+scoresInit();
