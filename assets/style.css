@@ -1,0 +1,17 @@
+*{
+    background-color:lightskyblue
+}
+
+h2{
+     color: green;
+     font-style: italic;
+     font-weight: bold;
+}
+
+button{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+label{
+    font-family: sans-serif
+}
+

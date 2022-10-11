@@ -1,6 +1,6 @@
 var timer = document.querySelector(".timer");
 var start = document.querySelector("#start");
-var rightAnswers = document.querySelector("#RightAnswers");
+var rightAnswers = document.getElementById("RightAnswers");
 var scoreInput = document.querySelector("#score-text");
 var nameInput = document.querySelector("#name-text");
 var scoreList = document.querySelector("#score-list");
@@ -9,14 +9,9 @@ var scoreCount = document.querySelector("#score-count");
 var nameList = document.querySelector("#name-list");
 var saveButton = document.getElementById("save");
 var questionsIndex = 0;
-var titleIndex = 0;
-var choicesIndex = 0;
 var answersIndex = 0;
-var answers = [
-  {
- correctAnswers: ["interactive","Chicken","Trick-Question","Pooltime"],
-  },
-];
+var answers = ["(1) interactive","(2) Chicken"," (3) Trick-Question"," (4) Pooltime"];
+  
 var questions = [
   {
     title: "Which of the following adjectives best describes JavaScript?",
@@ -84,28 +79,10 @@ function createQuestions(idx) {
   }
 }
 
-function displayAnswers(idx){
-var header = document.createElement("li");
-header.innerHTML = answersIndex[idx].correctAnswers;
-document.getElementById("answer").append(header);
-
-for (var i = 0; i < answers[idx].correctAnswers.length; i++){
-  var option = document.createElement("button");
-  option.setAttribute("class", "option");
-  option.addEventListener("click", function(event){
-    event.preventDefault();
-    answersIndex++;
-    displayAnswers(answersIndex);
-  });
-  option.innerHTML = answersIndex[idx].correctAnswers[i];
-  document.getElementById("answer").append(option);
-}
-}
 
 rightAnswers.addEventListener("click", function(event){
   event.preventDefault();
-  console.log("Display Answers");
-  displayAnswers(answersIndex);
+  document.getElementById("RightAnswers").textContent = answers.join(",");
 });
 start.addEventListener("click", function (event) {
   event.preventDefault();
